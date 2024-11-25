@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 // Screens
@@ -17,7 +16,6 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function MainTabs() {
-  
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -38,18 +36,19 @@ function MainTabs() {
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-        tabBarActiveTintColor: '#2193b0', 
-        tabBarInactiveTintColor: 'gray',  
+        tabBarActiveTintColor: '#2193b0',
+        tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
-          height: 60,                     
-          paddingBottom: 10,              
+          height: 60,
+          paddingBottom: 10,
           paddingTop: 10,
-          backgroundColor: '#f8f9fa',     
-          borderTopColor: 'rgba(0, 0, 0, 0.1)', 
+          backgroundColor: '#f8f9fa',
+          borderTopColor: 'rgba(0, 0, 0, 0.1)',
         },
         tabBarLabelStyle: {
-          fontSize: 12,                    
-          fontWeight: '600',              
+          fontSize: 12,
+          backgroundColor: '#f8f9fa',
+          fontWeight: '600',
         },
       })}
     >
@@ -64,13 +63,11 @@ function MainTabs() {
 
 function AppNavigator() {
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Main" component={MainTabs} options={{ headerShown: false }} />
+    </Stack.Navigator>
   );
 }
 

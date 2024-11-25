@@ -26,7 +26,7 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-   "plugins": [
+    "plugins": [
       [
         "expo-image-picker",
         {
@@ -40,7 +40,9 @@
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID for authentication.",
           "touchIDPermission": "Allow $(PRODUCT_NAME) to use Touch ID for authentication."
         }
-      ]
+      ],
+      "expo-font",
+      "expo-router"
     ],
     "permissions": [
       "CAMERA",

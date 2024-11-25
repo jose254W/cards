@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(190, 13, 13, 0.9)',
   },
   button: {
     backgroundColor: '#007AFF',

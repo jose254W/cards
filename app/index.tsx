@@ -1,7 +1,7 @@
 import React from 'react';
 import AppNavigator from '../src/navigation/AppNavigator';
-import { SafeAreaView, StyleSheet,StatusBar } from 'react-native';
-
+import { AppRegistry, SafeAreaView, StyleSheet,StatusBar } from 'react-native';
+import appConfig from '../app.json';
 export default function App() {
 
   return (
@@ -13,6 +13,7 @@ export default function App() {
       </SafeAreaView>
   );
 }
+AppRegistry.registerComponent(appConfig.expo.name, () => App);
 
 
 const styles = StyleSheet.create({

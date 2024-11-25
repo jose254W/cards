@@ -8,6 +8,7 @@ import {
   Alert,
   Modal,
   TextInput,
+  Platform,
 } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import { LinearGradient } from "expo-linear-gradient";
@@ -265,6 +266,18 @@ const WalletScreen = ({ navigation }) => {
     </View>
   );
 
+  const currencyOptions = [
+    { label: "Smart Pay", value: "SMART_PAY" },
+    { label: "Local Currency", value: "LOCAL_CURRENCY" },
+  ];
+
+  // Placeholder for picker
+  const placeholder = {
+    label: "Select Currency",
+    value: null,
+    color: "#9EA0A4",
+  };
+
   return (
     <LinearGradient colors={["#6dd5ed", "#2193b0"]} style={styles.container}>
       <View style={styles.balanceContainer}>
@@ -319,7 +332,7 @@ const WalletScreen = ({ navigation }) => {
 
       <Text style={styles.transactionTitle}>Recent Transactions</Text>
       <FlatList
-        data={[...transactions].reverse()} 
+        data={[...transactions].reverse()}
         renderItem={renderTransaction}
         keyExtractor={(item) => item.id}
         style={styles.transactionList}
@@ -347,13 +360,20 @@ const WalletScreen = ({ navigation }) => {
 
             <View style={styles.pickerContainer}>
               <RNPickerSelect
-                selectedValue={selectedCurrency}
-                onValueChange={(itemValue) => setSelectedCurrency(itemValue)}
-                items={[
-                  { label: "Smart Pay", value: "SMART_PAY" },
-                  { label: "Local Currency", value: "LOCAL_CURRENCY" },
-                ]}
-                style={pickerStyles}
+                onValueChange={(value) => setSelectedCurrency(value)}
+                items={currencyOptions}
+                value={selectedCurrency}
+                placeholder={placeholder}
+                style={{
+                  ...pickerSelectStyles,
+                  iconContainer: {
+                    top: Platform.OS === "android" ? 12 : 15,
+                    right: 12,
+                  },
+                }}
+                Icon={() => (
+                  <Ionicons name="chevron-down" size={24} color="#86939e" />
+                )}
               />
             </View>
 
@@ -518,6 +538,7 @@ const styles = StyleSheet.create({
   picker: {
     width: "100%",
     height: 50,
+    backgroundColor: "#ff6b6b",
   },
   modalButtons: {
     flexDirection: "row",
@@ -543,7 +564,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const pickerStyles = StyleSheet.create({
+const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
     fontSize: 16,
     paddingVertical: 12,
@@ -552,17 +573,24 @@ const pickerStyles = StyleSheet.create({
     borderColor: "#ddd",
     borderRadius: 10,
     color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
+    backgroundColor: "#fff",
+    marginBottom: 10,
   },
   inputAndroid: {
     fontSize: 16,
     paddingHorizontal: 10,
     paddingVertical: 8,
-    borderWidth: 0.5,
+    borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 10,
     color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
+    paddingRight: 30,
+    backgroundColor: "#fff",
+    marginBottom: 10,
+  },
+  placeholder: {
+    color: "#9EA0A4",
   },
 });
 
