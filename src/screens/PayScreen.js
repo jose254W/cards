@@ -9,6 +9,7 @@ import {
   Modal,
   ActivityIndicator 
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // Import Camera and BarCodeScanner from expo-camera properly
 import { Camera, BarCodeScanner } from 'expo-camera';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -16,10 +17,18 @@ import axios from 'axios';
 
 const API_URL = "http://192.168.100.43:3000/api/wallet";
 
-// Make sure to define getAuthToken function or import it
 const getAuthToken = async () => {
-  // Implement your auth token retrieval logic here
-  return "your-auth-token";
+  try {
+    const token = await AsyncStorage.getItem('token');
+    if (token) {
+      return token;
+    } else {
+      throw new Error('No token found');
+    }
+  } catch (error) {
+    console.error('Error retrieving token:', error);
+    throw error;
+  }
 };
 
 const PayScreen = ({ navigation }) => {
@@ -94,6 +103,7 @@ const PayScreen = ({ navigation }) => {
         `${API_URL}/pay`,
         {
           merchantId,
+          amount,  
           amount: parseFloat(amount),
           currency
         },
